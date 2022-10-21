@@ -1,4 +1,3 @@
-
 // ignore_for_file: deprecated_member_use
 
 // ignore: file_names
@@ -7,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'sign_up_Screen.dart';
-import'auth.dart';
-import'httpException.dart';
+import 'auth.dart';
+import 'httpException.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   Map<String, dynamic> signInData = {"Email": null, 'Password': ''};
   final formkey = GlobalKey<FormState>();
- 
+
   void showErrorDialog(String errorMessage) {
     showDialog(
         context: context,
@@ -30,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               title: const Text('An error occured'),
               content: Text(errorMessage),
               actions: [
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -39,8 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ]);
         });
   }
- 
- 
+
   void onSubmit() async {
     if (!formkey.currentState!.validate()) {
       return;
@@ -50,20 +48,18 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
     try {
-      
-        // Log user in
-        await Provider.of<Auth>(context, listen: false)
-            .logIn(signInData['Email']!, signInData['Password']!);
-      
+      // Log user in
+      await Provider.of<Auth>(context, listen: false)
+          .logIn(signInData['Email']!, signInData['Password']!);
     } on HttpException catch (error) {
       var errorMessage = 'Authantication Failed';
-        if (error.errorMessage.contains('INVALID_PASSWORD')) {
+      if (error.errorMessage.contains('INVALID_PASSWORD')) {
         errorMessage = 'Inavlid Password';
       } else if (error.errorMessage.contains('INVALID_EMAIL')) {
         errorMessage = 'Invalid Email';
       } else if (error.errorMessage.contains('EMAIL_NOT_FOUND')) {
         errorMessage = 'Email not found.Try Signup';
-      } 
+      }
       showErrorDialog(errorMessage);
     } catch (error) {
       const errorMessage = 'Authantication failed.Try later';
@@ -74,7 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,14 +160,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       CircleAvatar(
                         radius: 30,
                         backgroundColor: const Color(0xff4c505b),
-                        child:_isLoading?const CircularProgressIndicator(): IconButton(
-                            onPressed: () {
-                              onSubmit();
-                            },
-                            icon: const Icon(
-                              Icons.arrow_forward_rounded,
-                              color: Colors.white,
-                            )),
+                        child: _isLoading
+                            ? const CircularProgressIndicator()
+                            : IconButton(
+                                onPressed: () {
+                                  onSubmit();
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.white,
+                                )),
                       )
                     ],
                   ),

@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               title: const Text('An error occured'),
               content: Text(errorMessage),
               actions: [
-                FlatButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
