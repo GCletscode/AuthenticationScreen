@@ -35,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Okay!'),
+                  child: const Text('Try Later!'),
                 )
               ]);
         });

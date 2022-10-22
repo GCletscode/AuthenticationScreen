@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Okay!'),
+                  child: const Text('Try later!'),
                 )
               ]);
         });
